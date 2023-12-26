@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         
       },
       {
-        path: "/recipe",
+        path: "/recipe/:foodName",
         element: <Recipe />
          
       },
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         path:'/categories',
         element:<Categories/>
       },{
-        path:'/archive',
+        path:'/archive/:category',
         element:<Archive/>
       }
     ],
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <RouterProvider router={router} /> */}
-    <Construction />
+    <RouterProvider router={router} />
+    {/* <Construction /> */}
   </React.StrictMode>
 );
