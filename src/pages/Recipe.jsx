@@ -58,10 +58,11 @@ export default function Recipe() {
                 imgUrl: data,
               };
               test.push(ingredientObj);
+              index++;
             });
 
           ingredientPromises.push(promise);
-          index++;
+          
         }
       }
 
@@ -137,7 +138,7 @@ export default function Recipe() {
                 <IngredientCard
                   imgUrl={item.imgUrl}
                   ingredient={item.ingredient}
-                  quantity="1kg"
+                  quantity={item.quantity}
                 />
               </div>
             ))}

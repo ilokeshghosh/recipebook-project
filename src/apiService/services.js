@@ -134,7 +134,7 @@ class Services {
     }
 
     async getPopularRecipes() {
-        const categories = ['Chicken', 'Dessert', 'Seafood', 'Vegan']
+        const categories = ['Chicken', 'Dessert', 'Seafood', 'Vegan','Pasta']
         const result = [];
         try {
             const data = await this.getCategoriesList()
@@ -145,7 +145,7 @@ class Services {
                     }
                 })
             })
-            if (result.length === 4) {
+            if (result.length >= 4) {
                 return result;
             }
         } catch (error) {

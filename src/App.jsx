@@ -12,7 +12,7 @@ function App() {
       {/* nav bar */}
       <nav className="md:px-20 py-2 z-50 transition-[background-color] duration-500 ease-linear w-full mx-auto fixed left-0 md:top-0 flex items-center md:gap-10 gap-10 justify-between bg-[#292E36]">
         {/* logo */}
-        <NavHashLink  to={"/#home"} className={'hidden md:inline-block'}>
+        <NavHashLink smooth to={"/#home"} className={"hidden md:inline-block"}>
           <img
             className="md:w-[80px]  w-[40px]"
             src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Tasty-removebg-preview_uG-BxfeAY.png?updatedAt=1703355313793"
@@ -22,17 +22,17 @@ function App() {
 
         {/* links */}
         <ul className="text-[#E1B168]   w-full flex md:gap-24 px-2 gap-4 md:justify-end justify-between text-xs md:text-lg md:font-bold  italic">
-        <li>
-        <NavHashLink smooth  to={"/#home"}>
-            Home
+          <li>
+            <NavHashLink smooth to={"/#home"}>
+              Home
             </NavHashLink>
           </li>
           <li>
             <NavLink to={"/categories"}>Categories</NavLink>
           </li>
-          <li >
-            <NavHashLink smooth  to={"/#loved"} className={'flex'}>
-             Most <span className="not-italic">💖</span> Recipe
+          <li>
+            <NavHashLink smooth to={"/#loved"} className={"flex"}>
+              Most <span className="not-italic">💖</span> Recipe
             </NavHashLink>
           </li>
           <li>
@@ -41,12 +41,12 @@ function App() {
             </NavHashLink>
           </li>
           <li>
-            <NavHashLink smooth  to={"/#gallery"}>
+            <NavHashLink smooth to={"/#gallery"}>
               Gallery
             </NavHashLink>
           </li>
           <li>
-            <NavHashLink smooth  to={"/#contact"}>
+            <NavHashLink smooth to={"/#contact"}>
               Contact
             </NavHashLink>
           </li>

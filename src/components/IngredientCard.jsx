@@ -11,7 +11,7 @@ export default function IngredientCard({imgUrl,ingredient, quantity }) {
       {/* name and amount */}
       <div className="flex break-words  flex-col font-bold">
         <h2>{ingredient}</h2>
-        <h2>{quantity}</h2>
+        <h2 className="text-xs">{quantity}</h2>
       </div>
     </div>
   );

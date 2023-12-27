@@ -61,11 +61,12 @@ export default function Special() {
             </h1>
 
             {/* menu */}
-            <div className="flex justify-between mx-auto md:justify-between md:flex-wrap items-center gap-14 md:gap-10 w-full  overflow-x-auto  no-scrollbar">
+            <div className="flex  mx-auto justify-between items-center  gap-14 md:gap-1 w-full  overflow-x-auto  no-scrollbar">
               {todaySpecial.map((item) => (
                 <div key={item.idMeal}>
                   <Link to={`/recipe/${item.strMeal}`}>
                     <ItemCard
+                      width="100px"
                       className="md:w-[100px] w-[50px]"
                       imgUrl={item.strMealThumb}
                       title={item.strMeal}
@@ -87,11 +88,13 @@ export default function Special() {
             <div className="flex justify-between  md:justify-between items-center md:flex-wrap gap-16 w-full  overflow-x-auto  no-scrollbar">
               {popularCategories.map((item) => (
                 <div key={item.idCategory}>
-                  <ItemCard
-                    className="md:w-[100px] w-[50px]"
-                    imgUrl={item.strCategoryThumb}
-                    title={item.strCategory}
-                  />
+                  <Link to={`/archive/${item.strCategory}`}>
+                    <ItemCard
+                      className="md:w-[150px] w-[50px]"
+                      imgUrl={item.strCategoryThumb}
+                      title={item.strCategory}
+                    />
+                  </Link>
                 </div>
               ))}
             </div>
