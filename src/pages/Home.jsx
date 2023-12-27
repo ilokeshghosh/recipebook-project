@@ -68,7 +68,7 @@ export default function Home() {
               autoPlay
               loop
             >
-              <source src="src\assets\video1.mp4" />
+              <source src="https://ik.imagekit.io/8fgpvoiai/tastyhub/video1%20(online-video-cutter.com)_mbKr_vVEb.mp4?updatedAt=1703684910132" />
             </video>
           </div>
 

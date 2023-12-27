@@ -19,7 +19,7 @@ export default function Special() {
           const data = JSON.parse(localData);
           setTodaySpecial(data);
         } else {
-          for (let i = 0; i < 2; i++) {
+          for (let i = 0; i < 3; i++) {
             services.getRandomRecipe().then((data) => {
               const food = data.meals[0];
               setTodaySpecial((prev) => [...prev, food]);
@@ -39,7 +39,7 @@ export default function Special() {
 
   useEffect(() => {
     // console.log('today',todaySpecial);
-    if (todaySpecial.length === 4) {
+    if (todaySpecial.length >= 4) {
       localStorage.setItem("todaySpecial", JSON.stringify(todaySpecial));
     }
   }, [todaySpecial]);

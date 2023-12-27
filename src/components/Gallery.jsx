@@ -31,7 +31,7 @@ export default function Gallery() {
           const data = JSON.parse(localData);
           setItems(data);
         } else {
-          for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < 7; i++) {
             services.getRandomRecipe().then((data) => {
               const food = data.meals[0];
               setItems((prev) => [...prev, food]);
