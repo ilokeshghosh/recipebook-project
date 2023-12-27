@@ -19,7 +19,7 @@ export default function Special() {
           const data = JSON.parse(localData);
           setTodaySpecial(data);
         } else {
-          for (let i = 0; i < 3; i++) {
+          for (let i = 0; i < 4; i++) {
             services.getRandomRecipe().then((data) => {
               const food = data.meals[0];
               setTodaySpecial((prev) => [...prev, food]);
