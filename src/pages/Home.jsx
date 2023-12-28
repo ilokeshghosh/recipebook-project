@@ -6,6 +6,7 @@ import {Gallery, ItemCard, MostLoved, Special,Contact} from '../components'
 
 export default function Home() {
   const [url, setUrl] = useState(null);
+  const[loading, setLoading] = useState(true);
   useEffect(() => {
     // services.getRecipeByName('Nanaimo Bars').then(food=>{
     //   const data = [...food.meals]
@@ -32,12 +33,14 @@ export default function Home() {
       const url = data;
       setUrl(url);
     });
+    setLoading(false);
   }, []);
 
   
 
   // onWheel={handleNavbar}
   function handleNavbar(e) {
+    
     if (
       e.pageY >
       document.querySelector(".hero-page").clientHeight +
@@ -46,18 +49,26 @@ export default function Home() {
       document.querySelector("nav").style.backgroundColor = "#292E36";
     } else if (e.pageY < document.querySelector(".hero-page").clientHeight) {
       document.querySelector("nav").style.backgroundColor = "transparent";
+    }else if(window.scrollY>0){
+      document.querySelector("nav").style.backgroundColor = "#292E36";
+    }else if(window.scrollY===0){
+      document.querySelector("nav").style.backgroundColor = "transparent";
     }
   }
 
+  function checkText(e){
+    console.log('test',e.currentTarget);
+  }
+
   return (
-    <div onWheelCapture={handleNavbar} className="w-full">
+    <div onWheelCapture={handleNavbar} onLoadCapture={handleNavbar}   className="w-full">
       {/* landing page content wrapper */}
       <main
         className="w-full"
         style={{ fontFamily: "Josefin Sans, sans-serif" }}
       >
         {/* hero container */}
-        <div 
+        <div
         id="home"
         className="w-full relative hero-page">
           {/* video container */}
@@ -99,10 +110,15 @@ export default function Home() {
         </div>
 
         {/* today's special , popular and usp container */}
+       
+
         <Special/>
+       
 
         {/* mostly loved wrapper*/}
+        
         <MostLoved/>
+
 
         {/* gallery section */}
         <Gallery/>

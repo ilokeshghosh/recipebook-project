@@ -5,6 +5,7 @@ import services from "../apiService/services";
 export default function Special() {
   const [todaySpecial, setTodaySpecial] = useState([]);
   const [popularCategories, setPopularCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     services.getPopularRecipes().then((data) => {
       setPopularCategories(data);
@@ -44,6 +45,12 @@ export default function Special() {
     }
   }, [todaySpecial]);
 
+  useEffect(() => {
+    if (todaySpecial.length && popularCategories.length) {
+      setLoading(false);
+    }
+  }, [todaySpecial, popularCategories]);
+
   if (todaySpecial.length > 0 && setPopularCategories.length > 0) {
     return (
       <div
@@ -62,18 +69,53 @@ export default function Special() {
 
             {/* menu */}
             <div className="flex  mx-auto justify-between items-center  gap-14 md:gap-1 w-full  overflow-x-auto  no-scrollbar">
-              {todaySpecial.map((item) => (
-                <div key={item.idMeal}>
-                  <Link to={`/recipe/${item.strMeal}`}>
-                    <ItemCard
-                      width="100px"
-                      className="md:w-[100px] w-[50px]"
-                      imgUrl={item.strMealThumb}
-                      title={item.strMeal}
-                    />
-                  </Link>
-                </div>
-              ))}
+              {loading ? (
+                <>
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  {todaySpecial.map((item) => (
+                    <div key={item.idMeal}>
+                      <Link to={`/recipe/${item.strMeal}`}>
+                        <ItemCard
+                          width="100px"
+                          className="md:w-[100px] w-[50px]"
+                          imgUrl={item.strMealThumb}
+                          title={item.strMeal}
+                        />
+                      </Link>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
 
@@ -86,17 +128,52 @@ export default function Special() {
 
             {/* menu */}
             <div className="flex justify-between  md:justify-between items-center md:flex-wrap gap-16 w-full  overflow-x-auto  no-scrollbar">
-              {popularCategories.map((item) => (
-                <div key={item.idCategory}>
-                  <Link to={`/archive/${item.strCategory}`}>
-                    <ItemCard
-                      className="md:w-[150px] w-[50px]"
-                      imgUrl={item.strCategoryThumb}
-                      title={item.strCategory}
-                    />
-                  </Link>
-                </div>
-              ))}
+              {loading ? (
+                <>
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+
+                  <div
+                    className={`flex flex-col gap-3 justify-center items-center `}
+                  >
+                    <div className="rounded-full  w-[100px] bg-slate-300 h-24 skeleton"></div>
+                    <h2 className="italic md:text-2xl text-xl font-bold h-3 w-[100%] bg-slate-300 text-center rounded skeleton"></h2>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  {popularCategories.map((item) => (
+                    <div key={item.idCategory}>
+                      <Link to={`/archive/${item.strCategory}`}>
+                        <ItemCard
+                          className="md:w-[150px] w-[50px]"
+                          imgUrl={item.strCategoryThumb}
+                          title={item.strCategory}
+                        />
+                      </Link>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>

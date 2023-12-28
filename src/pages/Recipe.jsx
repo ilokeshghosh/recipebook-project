@@ -8,12 +8,16 @@ import { Fragment, useEffect, useState } from "react";
 import services from "../apiService/services";
 import { useParams, useNavigate } from "react-router-dom";
 import { IngredientCard } from "../components";
+import { NavLink } from "react-router-dom";
+import { HashLink, NavHashLink } from "react-router-hash-link";
 
 export default function Recipe() {
   const [url, setUrl] = useState(null);
   const [food, setFood] = useState(null);
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const foodName = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -62,7 +66,6 @@ export default function Recipe() {
             });
 
           ingredientPromises.push(promise);
-          
         }
       }
 
@@ -72,10 +75,15 @@ export default function Recipe() {
     }
   }, [food]);
 
+  useEffect(() => {
+    if (url && food && ingredients.length && instructions.length) {
+      setLoading(false);
+    }
+  }, [url, food, ingredients, instructions]);
 
-  const handleCheckBox =(e)=>{
-    e.currentTarget.classList.toggle('bg-green-500')
-  }
+  const handleCheckBox = (e) => {
+    e.currentTarget.classList.toggle("bg-green-500");
+  };
   return food ? (
     <main
       className="w-full"
@@ -105,15 +113,24 @@ export default function Recipe() {
             <FaCirclePlay />
           </div>
 
-          <iframe
-            className="md:w-[60%] md:h-[460px] h-[260px] w-full rounded-lg flex justify-center items-center"
-            // width="560"
-            // height="460"
-            src={url}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          {loading ? (
+            <>
+              <div className="md:w-[60%] md:h-[460px] h-[260px] w-full rounded-lg flex justify-center items-center skeleton"></div>
+            </>
+          ) : (
+            <>
+              {" "}
+              <iframe
+                className="md:w-[60%] md:h-[460px] h-[260px] w-full rounded-lg flex justify-center items-center"
+                // width="560"
+                // height="460"
+                src={url}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </>
+          )}
 
           <video className="md:w-[60%] hidden w-full rounded-lg" controls>
             <source src="src\assets\video2.mp4" />
@@ -133,15 +150,68 @@ export default function Recipe() {
         <div className="flex justify-between w-full md:flex-row flex-col">
           {/* ingredients items container */}
           <div className="flex flex-wrap md:w-[60%]  w-full  mx-auto justify-center items-start gap-x-14 overflow-y-auto no-scrollbar   gap-10 py-5">
-            {ingredients.map((item, index) => (
-              <div key={index} className="">
-                <IngredientCard
-                  imgUrl={item.imgUrl}
-                  ingredient={item.ingredient}
-                  quantity={item.quantity}
-                />
-              </div>
-            ))}
+            {loading ? (
+              <>
+                {" "}
+                <div className="flex w-[150px]  justify-center items-center gap-2 mx-auto md:mx-0 ">
+                  <div className="h-3 w-3 rounded- skeleton"></div>
+                  <div className="w-[100px] h-[100px] rounded-lg border skeleton"></div>
+
+                  {/* name and amount */}
+                  <div className="flex break-words  flex-col font-bold gap-3">
+                    <div className="h-2 w-8 skeleton"></div>
+                    <div className="h-2 w-4 skeleton"></div>
+                    <h2 className="text-xs"></h2>
+                  </div>
+                </div>
+                <div className="flex w-[150px]  justify-center items-center gap-2 mx-auto md:mx-0 ">
+                  <div className="h-3 w-3 rounded- skeleton"></div>
+                  <div className="w-[100px] h-[100px] rounded-lg border skeleton"></div>
+
+                  {/* name and amount */}
+                  <div className="flex break-words  flex-col font-bold gap-3">
+                    <div className="h-2 w-8 skeleton"></div>
+                    <div className="h-2 w-4 skeleton"></div>
+                    <h2 className="text-xs"></h2>
+                  </div>
+                </div>
+                <div className="flex w-[150px]  justify-center items-center gap-2 mx-auto md:mx-0 ">
+                  <div className="h-3 w-3 rounded- skeleton"></div>
+                  <div className="w-[100px] h-[100px] rounded-lg border skeleton"></div>
+
+                  {/* name and amount */}
+                  <div className="flex break-words  flex-col font-bold gap-3">
+                    <div className="h-2 w-8 skeleton"></div>
+                    <div className="h-2 w-4 skeleton"></div>
+                    <h2 className="text-xs"></h2>
+                  </div>
+                </div>
+                <div className="flex w-[150px]  justify-center items-center gap-2 mx-auto md:mx-0 ">
+                  <div className="h-3 w-3 rounded- skeleton"></div>
+                  <div className="w-[100px] h-[100px] rounded-lg border skeleton"></div>
+
+                  {/* name and amount */}
+                  <div className="flex break-words  flex-col font-bold gap-3">
+                    <div className="h-2 w-8 skeleton"></div>
+                    <div className="h-2 w-4 skeleton"></div>
+                    <h2 className="text-xs"></h2>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {" "}
+                {ingredients.map((item, index) => (
+                  <div key={index} className="">
+                    <IngredientCard
+                      imgUrl={item.imgUrl}
+                      ingredient={item.ingredient}
+                      quantity={item.quantity}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
           </div>
 
           {/* food details and horizontal ruler section */}
@@ -150,46 +220,18 @@ export default function Recipe() {
             {/* food details */}
             <div className="flex flex-col gap-1  ">
               {/* image */}
-              <img className=" w-full" src={food.strMealThumb} alt="" />
+              {loading ? (
+                <>
+                  <div className="w-[300px] h-[300px] skeleton"></div>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <img className=" w-full" src={food.strMealThumb} alt="" />
+                </>
+              )}
 
               {/* lower details section */}
-              <div className="flex flex-col gap-1 py-2 hidden">
-                {/* item */}
-                <div className="flex items-center justify-between">
-                  {/* title and logo */}
-                  <div className="flex font-bold text-lg  gap-1 items-center">
-                    <IoTimerOutline className="text-[#E1B168]" />
-                    <h3>Cooking time :</h3>
-                  </div>
-
-                  {/* sub title */}
-                  <h4 className="font-bold">25min</h4>
-                </div>
-
-                {/* item */}
-                <div className="flex items-center justify-between">
-                  {/* title and logo */}
-                  <div className="flex font-bold text-lg  gap-1 items-center">
-                    <GiChefToque className="text-[#E1B168]" />
-                    <h3>Difficulty :</h3>
-                  </div>
-
-                  {/* sub title */}
-                  <h4 className="font-bold">Medium</h4>
-                </div>
-
-                {/* item */}
-                <div className="flex items-center justify-between">
-                  {/* title and logo */}
-                  <div className="flex font-bold text-lg  gap-1 items-center">
-                    <GiForkKnifeSpoon className="text-[#E1B168]" />
-                    <h3>Serving :</h3>
-                  </div>
-
-                  {/* sub title */}
-                  <h4 className="font-bold">05</h4>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -216,7 +258,10 @@ export default function Recipe() {
               {instructions.map((item, index) => (
                 <div key={index} className="">
                   {/* checkbox */}
-                  <div onClick={handleCheckBox} className="relative checkBox  rounded-full flex justify-center items-center ">
+                  <div
+                    onClick={handleCheckBox}
+                    className="relative checkBox  rounded-full flex justify-center items-center "
+                  >
                     <input
                       className="opacity-0"
                       type="checkbox"
@@ -245,178 +290,53 @@ export default function Recipe() {
                 </div>
               ))}
             </div>
-
-            {/* original code */}
-            {/* left section */}
-            <div className="flex flex-col items-center hidden">
-              {/* checkbox */}
-              <div className="relative flex justify-center items-center ">
-                <input className="opacity-0" type="checkbox" name="" id="" />
-                <label className="border-2  border-[#E1B168] absolute w-3 h-3 rounded-full top-0 right-0 before:content-['']"></label>
-              </div>
-
-              <div className="border w-0 md:h-20 h-40 border-black border-dotted"></div>
-
-              {/* checkbox */}
-              <div className="relative flex justify-center items-center ">
-                <input className="opacity-0" type="checkbox" name="" id="" />
-                <label className="border-2  border-[#E1B168] absolute w-3 h-3 rounded-full top-0 right-0 before:content-['']"></label>
-              </div>
-
-              <div className="border w-0 md:h-20 h-40 border-black border-dotted"></div>
-
-              {/* checkbox */}
-              <div className="relative flex justify-center items-center ">
-                <input className="opacity-0" type="checkbox" name="" id="" />
-                <label className="border-2  border-[#E1B168] absolute w-3 h-3 rounded-full top-0 right-0 before:content-['']"></label>
-              </div>
-
-              <div className="border w-0 md:h-20 h-40 border-black border-dotted"></div>
-
-              {/* checkbox */}
-              <div className="relative flex justify-center items-center ">
-                <input className="opacity-0" type="checkbox" name="" id="" />
-                <label className="border-2  border-[#E1B168] absolute w-3 h-3 rounded-full top-0 right-0 before:content-['']"></label>
-              </div>
-
-              <div className="border w-0 md:h-20 h-40 border-black border-dotted"></div>
-
-              <div className="relative flex justify-center items-center ">
-                <input className="opacity-0" type="checkbox" name="" id="" />
-                <label className="border-2  border-[#E1B168] absolute w-3 h-3 rounded-full top-0 right-0 before:content-['']"></label>
-              </div>
-            </div>
-
-            {/* right section */}
-            <div className="flex  flex-col gap-2 hidden">
-              {/* step */}
-              <div className="flex flex-col  md:h-20 h-40">
-                <h1 className="text-lg font-bold">STEP 01</h1>
-                <h3 className="font">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi
-                  illo tempora rerum obcaecati ea omnis facilis aut inventore
-                  consectetur ducimus.
-                </h3>
-              </div>
-
-              {/* step */}
-              <div className="flex flex-col  md:h-20 h-40">
-                <h1 className="text-lg font-bold">STEP 01</h1>
-                <h3 className="font">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi
-                  illo tempora rerum obcaecati ea omnis facilis aut inventore
-                  consectetur ducimus.
-                </h3>
-              </div>
-
-              {/* step */}
-              <div className="flex flex-col  md:h-20 h-40">
-                <h1 className="text-lg font-bold">STEP 01</h1>
-                <h3 className="font">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi
-                  illo tempora rerum obcaecati ea omnis facilis aut inventore
-                  consectetur ducimus.
-                </h3>
-              </div>
-
-              {/* step */}
-              <div className="flex flex-col  md:h-20 h-40">
-                <h1 className="text-lg font-bold">STEP 01</h1>
-                <h3 className="font">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi
-                  illo tempora rerum obcaecati ea omnis facilis aut inventore
-                  consectetur ducimus.
-                </h3>
-              </div>
-              {/* step */}
-              <div className="flex flex-col  h-20">
-                <h1 className="text-lg font-bold">STEP 01</h1>
-                <h3 className="font">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi
-                  illo tempora rerum obcaecati ea omnis facilis aut inventore
-                  consectetur ducimus.
-                </h3>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* right section / nutrition info */}
-        <div
-          className="md:w-[30%] w-full flex flex-col md:px-10 px-5 hidden
-           gap-3"
-        >
-          {/* title */}
-          <h1 className="text-3xl font-bold">Nutrition Info</h1>
-
-          <div className="border border-slate-400 w-full"></div>
-
-          {/* lower section */}
-          <div className="flex flex-col gap-2">
-            {/* nutrition info */}
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="font-bold">Calories</h1>
-              <img
-                className="md:w-[60%] w-[50%] font-bold"
-                src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Line%208_jZ3ua_ySk.png?updatedAt=1703360516474"
-                alt=""
-              />
-              <h1 className="font-bold">230</h1>
-            </div>
-
-            {/* nutrition info */}
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="font-bold">Saturated Fat</h1>
-              <img
-                className="w-[60%] font-bold"
-                src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Line%208_jZ3ua_ySk.png?updatedAt=1703360516474"
-                alt=""
-              />
-              <h1 className="font-bold">0.9g</h1>
-            </div>
-
-            {/* nutrition info */}
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="font-bold">Polyunsaturated Fat</h1>
-              <img
-                className="w-[60%] font-bold"
-                src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Line%208_jZ3ua_ySk.png?updatedAt=1703360516474"
-                alt=""
-              />
-              <h1 className="font-bold">1.9g</h1>
-            </div>
-
-            {/* nutrition info */}
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="font-bold">Protein</h1>
-              <img
-                className="w-[60%] font-bold"
-                src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Line%208_jZ3ua_ySk.png?updatedAt=1703360516474"
-                alt=""
-              />
-              <h1 className="font-bold">57.7g</h1>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* footer section */}
       <footer className=" px-20 py-2 z-50 bg-[#292E36] w-full mx-auto  flex-row-reverse hidden lg:flex items-center justify-between">
         {/* logo */}
-        <img
-          className="w-[80px]"
-          src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Tasty-removebg-preview_uG-BxfeAY.png?updatedAt=1703355313793"
-          alt="logo"
-        />
+        <NavHashLink smooth to={"/#home"} className={"hidden md:inline-block"}>
+          <img
+            className="md:w-[80px]  w-[40px]"
+            src="https://ik.imagekit.io/8fgpvoiai/tastyhub/Tasty-removebg-preview_uG-BxfeAY.png?updatedAt=1703355313793"
+            alt="logo"
+          />
+        </NavHashLink>
 
         {/* links */}
         <ul className="text-[#E1B168] flex gap-24 font-bold italic">
-          <li>About</li>
           <li>
-            <a href="#menu">Menu</a>
+            <NavHashLink smooth to={"/#contact"}>
+              Contact
+            </NavHashLink>
           </li>
-          <li>Gallery</li>
-          <li>Contact</li>
+          <li>
+            <NavHashLink smooth to={"/#gallery"}>
+              Gallery
+            </NavHashLink>
+          </li>
+          <li>
+            <NavHashLink smooth to={"/#special"}>
+              Special
+            </NavHashLink>
+          </li>
+          <li>
+            <NavHashLink smooth to={"/#loved"} className={"flex "}>
+              Most <span className="not-italic">💖</span> Recipe
+            </NavHashLink>
+          </li>
+          <li>
+            <NavLink to={"/categories"}>Categories</NavLink>
+          </li>
+          <li>
+            <NavHashLink smooth to={"/#home"}>
+              Home
+            </NavHashLink>
+          </li>
         </ul>
       </footer>
     </main>

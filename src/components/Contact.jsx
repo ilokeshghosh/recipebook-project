@@ -93,7 +93,7 @@ export default function Contact() {
             </NavHashLink>
           </li>
           <li>
-            <NavHashLink smooth to={"/#loved"} className={"flex"}>
+            <NavHashLink smooth to={"/#loved"} className={"flex "}>
               Most <span className="not-italic">💖</span> Recipe
             </NavHashLink>
           </li>

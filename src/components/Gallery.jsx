@@ -7,7 +7,7 @@ export default function Gallery() {
   const [items, setItems] = useState([]);
   const [upperPanel, setUpperPanel] = useState([]);
   const [lowerPanel, setLowerPanel] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   function addOpen(e) {
     document.querySelectorAll(".panel").forEach((item) => {
       if (item.classList.contains("open")) {
@@ -58,6 +58,12 @@ export default function Gallery() {
     }
   }, [items]);
 
+  useEffect(() => {
+    if (lowerPanel.length && upperPanel.length && items.length) {
+      setLoading(false);
+    }
+  }, [lowerPanel, upperPanel, items]);
+
   const activeReadMore = (e) => {
     e.currentTarget.querySelector(".readMore").classList.add("opacity-1");
     e.currentTarget.querySelector(".readMore").classList.remove("opacity-0");
@@ -68,69 +74,91 @@ export default function Gallery() {
     e.currentTarget.querySelector(".readMore").classList.add("opacity-0");
   };
 
-  if (items.length > 0) {
-    return (
-      <div
-        id="gallery"
-        className="w-full md:pt-28 pt-16 h-screen overflow-X-hidden  flex flex-col py-5 md:py-2 md:px-20 px-2 md:gap-6 gap-2"
-        style={{ fontFamily: "Cormorant Infant, sans-serif" }}
-      >
-        {/* upper panels */}
-        <div className="flex  w-full h-1/2 md:gap-6 gap-1 panels">
-          {upperPanel.map((item, index) => (
-            <div key={index} className="w-full h-full">
-              <div
-                onMouseEnter={activeReadMore}
-                onMouseLeave={deactiveReadMore}
-                style={{
-                  backgroundImage: `url(${item.strMealThumb})`,
-                }}
-                className=" bg-center bg-cover bg-no-repeat   w-full h-full flex flex-col  justify-center items-center gap-2 relative"
-              >
-                <div className="absolute readMore transition-all opacity-0 duration-500 ease-linear top-0 left-0 flex justify-center items-center flex-col w-full h-full bg-[#263141]/60">
-                  <h1 className="title md:text-4xl text-center text-lg font-bold text-white">
-                    {item.strMeal}
-                  </h1>
-                  <Link to={`/recipe/${item.strMeal}`}>
-                    <h3 className="subtitle md:text-2xl text-base font-bold text-[#E1B168]">
-                      Recipes
-                    </h3>
-                  </Link>
+  // if (items.length > 0) {
+  return (
+    <div
+      id="gallery"
+      className="w-full md:pt-28 pt-16 h-screen overflow-X-hidden  flex flex-col py-5 md:py-2 md:px-20 px-2 md:gap-6 gap-2"
+      style={{ fontFamily: "Cormorant Infant, sans-serif" }}
+    >
+      {/* upper panels */}
+      <div className="flex  w-full h-1/2 md:gap-6 gap-1 panels">
+        {loading ? (
+          <>
+            {" "}
+            <div className="h-[300px] w-full skeleton"></div>
+            <div className="h-[300px] w-full skeleton"></div>
+            <div className="h-[300px] w-full skeleton"></div>
+            <div className="h-[300px] w-full skeleton"></div>
+          </>
+        ) : (
+          <>
+            {" "}
+            {upperPanel.map((item, index) => (
+              <div key={index} className="w-full h-full">
+                <div
+                  onMouseEnter={activeReadMore}
+                  onMouseLeave={deactiveReadMore}
+                  style={{
+                    backgroundImage: `url(${item.strMealThumb})`,
+                  }}
+                  className=" bg-center bg-cover bg-no-repeat   w-full h-full flex flex-col  justify-center items-center gap-2 relative"
+                >
+                  <div className="absolute readMore transition-all opacity-0 duration-500 ease-linear top-0 left-0 flex justify-center items-center flex-col w-full h-full bg-[#263141]/60">
+                    <h1 className="title md:text-4xl text-center text-lg font-bold text-white">
+                      {item.strMeal}
+                    </h1>
+                    <Link to={`/recipe/${item.strMeal}`}>
+                      <h3 className="subtitle md:text-2xl text-base font-bold text-[#E1B168]">
+                        Recipes
+                      </h3>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* lower panels */}
-        <div className="flex  w-full md:gap-6 gap-1 h-1/2">
-          {lowerPanel.map((item, index) => (
-            <div key={index} className="w-full h-full">
-              <div
-                onMouseEnter={activeReadMore}
-                onMouseLeave={deactiveReadMore}
-                style={{
-                  backgroundImage: `url(${item.strMealThumb})`,
-                }}
-                className=" transition-all bg-center bg-cover bg-no-repeat  w-full h-full flex flex-col  justify-center items-center gap-2 relative"
-              >
-                <div className="absolute transition-all duration-500 ease-linea  readMore top-0 left-0 opacity-0 flex justify-center items-center flex-col w-full h-full bg-[#263141]/60">
-                  <h1 className="title md:text-4xl text-lg font-bold text-white text-center">
-                    {item.strMeal}
-                  </h1>
-                  <Link to={`/recipe/${item.strMeal}`}>
-                    <h3 className="subtitle md:text-2xl text-base font-bold text-[#E1B168]">
-                      Recipes
-                    </h3>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </>
+        )}
       </div>
-    );
-  } else {
-    return <h1>loading page</h1>;
-  }
+
+      {/* lower panels */}
+      <div className="flex  w-full md:gap-6 gap-1 h-1/2">
+        {loading ? (
+          <>
+            {" "}
+            <div className="h-[300px] w-full skeleton"></div>
+            <div className="h-[300px] w-full skeleton"></div>
+            <div className="h-[300px] w-full skeleton"></div>
+            <div className="h-[300px] w-full skeleton"></div>
+          </>
+        ) : (
+          <>
+            {lowerPanel.map((item, index) => (
+              <div key={index} className="w-full h-full">
+                <div
+                  onMouseEnter={activeReadMore}
+                  onMouseLeave={deactiveReadMore}
+                  style={{
+                    backgroundImage: `url(${item.strMealThumb})`,
+                  }}
+                  className=" transition-all bg-center bg-cover bg-no-repeat  w-full h-full flex flex-col  justify-center items-center gap-2 relative"
+                >
+                  <div className="absolute transition-all duration-500 ease-linea  readMore top-0 left-0 opacity-0 flex justify-center items-center flex-col w-full h-full bg-[#263141]/60">
+                    <h1 className="title md:text-4xl text-lg font-bold text-white text-center">
+                      {item.strMeal}
+                    </h1>
+                    <Link to={`/recipe/${item.strMeal}`}>
+                      <h3 className="subtitle md:text-2xl text-base font-bold text-[#E1B168]">
+                        Recipes
+                      </h3>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
