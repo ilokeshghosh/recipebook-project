@@ -25,7 +25,6 @@ function App() {
     }
   }
 
-
   return (
     <div className="w-full">
       {/* nav bar */}

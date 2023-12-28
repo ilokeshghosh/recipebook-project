@@ -1,4 +1,4 @@
-export default function IngredientCard({imgUrl,ingredient, quantity }) {
+export default function IngredientCard({ imgUrl, ingredient, quantity }) {
   return (
     <div className="flex w-[150px]  justify-center items-center gap-2 mx-auto md:mx-0 ">
       <input className="" type="checkbox" name="" id="" />

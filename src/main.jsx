@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home, Recipe,Categories, Archive,Construction } from "./pages";
+import { Home, Recipe, Categories, Archive, Construction } from "./pages";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,24 +12,22 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />
-        
+        element: <Home />,
       },
       {
         path: "/recipe/:foodName",
-        element: <Recipe />
-         
+        element: <Recipe />,
       },
       {
-        path:'/categories',
-        element:<Categories/>
-      },{
-        path:'/archive/:category',
-        element:<Archive/>
-      }
+        path: "/categories",
+        element: <Categories />,
+      },
+      {
+        path: "/archive/:category",
+        element: <Archive />,
+      },
     ],
-  }
-  
+  },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
