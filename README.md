@@ -4,9 +4,9 @@
 
 Tasty Hub is a captivating web application built using React.js, offering a delightful culinary experience to users. Leveraging The Meal DB API, this project provides a seamless and user-friendly interface for exploring, discovering, and creating recipes. Whether you're a seasoned chef or a cooking enthusiast, Tasty Hub is designed to satisfy your culinary cravings.
 
-Live Demo : [TastyHub]('https://tastyhubreact.netlify.app/) 
+Live Demo : [TastyHub](https://tastyhubreact.netlify.app/) 
 
-API Link : [TheMealDB]('https://www.themealdb.com/api.php')
+API Link : [TheMealDB](https://www.themealdb.com/api.php)
 
 ## Features
 
@@ -26,7 +26,7 @@ Enhance your cooking experience by watching curated cooking videos for each reci
 
 To experience Tasty Hub Recipe Book, follow these simple steps:
 
-1. Visit [TastyHub]('https://tastyhubreact.netlify.app/)
+1. Visit [TastyHub](https://tastyhubreact.netlify.app/) 
 
 ## Technologies Used
 
@@ -35,4 +35,4 @@ To experience Tasty Hub Recipe Book, follow these simple steps:
 
 
 ## Deployment
-The project is currently deployed on Netlify and can be accessed at [TastyHub]('https://tastyhubreact.netlify.app/)
+The project is currently deployed on Netlify and can be accessed at [TastyHub](https://tastyhubreact.netlify.app/) 
