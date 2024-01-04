@@ -53,7 +53,7 @@ export default function Archive() {
           </div>
 
           {/* left section and filters */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 hidden">
             <input
               className="border font-bold outline-none rounded-xl py-1 border-black px-4"
               type="search"

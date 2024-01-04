@@ -46,7 +46,7 @@ export default function Categories() {
         <div className="w-full flex justify-between items-center">
           <h1 className="md:text-4xl text-2xl font-bold">Categories</h1>
           <input
-            className="border-2 md:w-[20%]  py-1 font-bold outline-none px-5 border-slate-500 rounded-2xl"
+            className="border-2 md:w-[20%] hidden py-1 font-bold outline-none px-5 border-slate-500 rounded-2xl"
             placeholder="Search Here"
             type="search"
             name="search"
