@@ -10,6 +10,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { IngredientCard } from "../components";
 import { NavLink } from "react-router-dom";
 import { HashLink, NavHashLink } from "react-router-hash-link";
+import {Loading} from "./index";
 
 export default function Recipe() {
   const [url, setUrl] = useState(null);
@@ -26,7 +27,7 @@ export default function Recipe() {
         const data = [...food.meals];
         const meal = data[0];
         setFood(meal);
-        setInstructions(meal.strInstructions.split(". "));
+        setInstructions(meal.strInstructions.split("\r\n").filter(step => step.trim() !== ''));
 
         const videoId = meal.strYoutube.split("v=")[1];
 
@@ -341,6 +342,6 @@ export default function Recipe() {
       </footer>
     </main>
   ) : (
-    <h1>this</h1>
+    <h1><Loading/></h1>
   );
 }

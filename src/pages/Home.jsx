@@ -8,27 +8,6 @@ export default function Home() {
   const [url, setUrl] = useState(null);
   const[loading, setLoading] = useState(true);
   useEffect(() => {
-    // services.getRecipeByName('Nanaimo Bars').then(food=>{
-    //   const data = [...food.meals]
-    //   const meal = data[0]
-    //   console.log(meal);
-    // })
-
-    // services.getCategoriesList().then((food) => {
-    //   const data = food.categories;
-    //   console.log(data);
-    // });
-
-    // services.getFoodByIngredient('pork').then(food=>{
-    //   const data =food.meals
-    //   console.log(data);
-    // })
-
-    // services.getRecipeById('52951').then(data=>{
-    //   const items = data.meals
-    //   console.log(items);
-    // })
-
     services.getIngredientImage("Eggs").then((data) => {
       const url = data;
       setUrl(url);
